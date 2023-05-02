@@ -19,7 +19,58 @@ Before starting this demo, you should have the following:
 1. Clone this repository to your local machine:
 
 ```
+git clone https://github.com/<YOUR-USERNAME>/lke-terraform-demo.git
+```
+2. cd into the infrastructure directory:
 
+```
+cd infrastructure
+```
+
+3. Create a terraform.tfvars file with the following variables, replacing the values with your own:
+```
+token = "<YOUR-LINODE-PAT>"
+k8s_version = "<K8S-VERSION>"
+label = "<CLUSTER-LABEL>"
+region = "<CLUSTER-REGION>"
+pools = {
+  "pool-1" = {
+    type = "<POOL-TYPE>"
+    count = <POOL-COUNT>
+  }
+}
+```
+
+4. Initialize the Terraform providers:
+```
+terraform init
+```
+
+5. Create the infrastructure:
+```
+terraform plan
+terraform apply
+```
+
+6. After the infrastructure is created, navigate to the k8s directory:
+```
+cd ../k8s
+```
+
+7. Initialize the Terraform providers:
+```
+terraform init
+```
+
+8. Deploy Kubernetes environment:
+```
+terraform plan
+terraform apply
+```
+
+9. After the environment is deployed, you can access the Nginx service at the IP address of the load balancer, which can be found in the Terraform output:
+```
+terraform output -raw api_endpoints
 ```
 
 
