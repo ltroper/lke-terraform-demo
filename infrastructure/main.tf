@@ -13,7 +13,7 @@ provider "linode" {
 
 //Use the linode_lke_cluster resource to create
 //a Kubernetes cluster
-resource "linode_lke_cluster" "tickTrade" {
+resource "linode_lke_cluster" "CBC" {
   k8s_version = var.k8s_version
   label       = var.label
   region      = var.region
@@ -31,12 +31,12 @@ resource "linode_lke_cluster" "tickTrade" {
 
 
 locals {
-  kubeconfig = base64decode(linode_lke_cluster.tickTrade.kubeconfig)
+  kubeconfig = base64decode(linode_lke_cluster.CBC.kubeconfig)
 }
 
 resource "null_resource" "write_kubeconfig" {
   provisioner "local-exec" {
-    command = "mkdir ~/.kube && echo '${local.kubeconfig}' > ~/.kube/tickTradeConfig"
+    command = "mkdir ~/.kube && echo '${local.kubeconfig}' > ~/.kube/cbcPOC"
   }
 }
 
@@ -44,24 +44,24 @@ resource "null_resource" "write_kubeconfig" {
 
 //Export this cluster's attributes
 output "kubeconfig" {
-  value     = linode_lke_cluster.tickTrade.kubeconfig
+  value     = linode_lke_cluster.CBC.kubeconfig
   sensitive = true
 }
 
 output "api_endpoints" {
-  value = linode_lke_cluster.tickTrade.api_endpoints
+  value = linode_lke_cluster.CBC.api_endpoints
 }
 
 output "status" {
-  value = linode_lke_cluster.tickTrade.status
+  value = linode_lke_cluster.CBC.status
 }
 
 output "id" {
-  value = linode_lke_cluster.tickTrade.id
+  value = linode_lke_cluster.CBC.id
 }
 
 output "pool" {
-  value = linode_lke_cluster.tickTrade.pool
+  value = linode_lke_cluster.CBC.pool
 }
 
 

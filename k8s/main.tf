@@ -9,15 +9,15 @@ terraform {
 
 
 provider "kubernetes" {
-  config_path = "~/.kube/tickTradeConfig"
+  config_path = "~/.kube/cbcPOC"
 }
 
-resource "kubernetes_deployment" "tickTrade" {
+resource "kubernetes_deployment" "CBC" {
   metadata {
-    name = "tick-trade-poc"
+    name = "CBC-poc"
     labels = {
-      test = "tickTradePOC"
-      app  = "tick-trade-poc"
+      test = "CBCPOC"
+      app  = "CBC-poc"
     }
   }
 
@@ -26,21 +26,21 @@ resource "kubernetes_deployment" "tickTrade" {
 
     selector {
       match_labels = {
-        app = "tick-trade-poc"
+        app = "CBC-poc"
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "tick-trade-poc"
+          app = "CBC-poc"
         }
       }
 
       spec {
         container {
           image = "nginx"
-          name  = "tick-trade-poc"
+          name  = "CBC-poc"
           port {
             container_port = 80
           }
@@ -50,17 +50,17 @@ resource "kubernetes_deployment" "tickTrade" {
   }
 }
 
-resource "kubernetes_service" "tickTrade" {
+resource "kubernetes_service" "CBC" {
   metadata {
-    name = "tick-trade-poc"
+    name = "CBC-poc"
     labels = {
-      test = "tickTradePOC"
-      app  = "tick-trade-poc"
+      test = "CBCPOC"
+      app  = "CBC-poc"
     }
   }
   spec {
     selector = {
-      app = kubernetes_deployment.tickTrade.spec.0.template.0.metadata.0.labels.app
+      app = kubernetes_deployment.CBC.spec.0.template.0.metadata.0.labels.app
     }
     type = "LoadBalancer"
     port {
