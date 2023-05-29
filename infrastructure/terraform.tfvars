@@ -1,0 +1,18 @@
+token = {
+  description = "set in project vars"
+  sensitive   = true
+}
+pass = {
+  description = "set in project vars"
+  sensitive   = true
+}
+
+k8s_version = "1.25"
+label = "CBC"
+region = "us-east"
+pools = [
+  {
+    type : "g6-standard-2"
+    count : 3
+  }
+]

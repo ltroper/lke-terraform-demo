@@ -14,7 +14,7 @@ provider "kubernetes" {
 
 resource "kubernetes_deployment" "CBC" {
   metadata {
-    name = "CBC-poc"
+    name = "cbc-poc"
     labels = {
       test = "CBCPOC"
       app  = "CBC-poc"
@@ -40,7 +40,7 @@ resource "kubernetes_deployment" "CBC" {
       spec {
         container {
           image = "nginx"
-          name  = "CBC-poc"
+          name  = "cbc-poc"
           port {
             container_port = 80
           }
@@ -52,7 +52,7 @@ resource "kubernetes_deployment" "CBC" {
 
 resource "kubernetes_service" "CBC" {
   metadata {
-    name = "CBC-poc"
+    name = "cbc-poc"
     labels = {
       test = "CBCPOC"
       app  = "CBC-poc"
