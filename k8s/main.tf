@@ -72,3 +72,9 @@ resource "kubernetes_service" "CBC" {
     }
   }
 }
+
+
+variable "workspace" {
+  description = "set in project vars"
+  sensitive   = true
+}
