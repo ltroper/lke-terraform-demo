@@ -9,7 +9,7 @@ terraform {
 
 
 provider "kubernetes" {
-  config_path = "${var.workspace}/cluster1/kubeconfig.yaml"
+  config_path = "${var.workspace}/kubeconfig.yaml"
 }
 
 # provider "kubernetes" {
