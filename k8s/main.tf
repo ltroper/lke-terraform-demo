@@ -8,13 +8,13 @@ terraform {
 }
 
 
-# provider "kubernetes" {
-#   config_path = "~/.kube/cbcPOC"
-# }
-
 provider "kubernetes" {
-  config_path = "${WORKSPACE}/leos-file"
+  config_path = "~/.kube/cbcPOC"
 }
+
+# provider "kubernetes" {
+#   config_path = "${WORKSPACE}/leos-file"
+# }
 
 resource "kubernetes_deployment" "CBC" {
   metadata {

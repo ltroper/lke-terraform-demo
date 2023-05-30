@@ -34,19 +34,19 @@ locals {
   kubeconfig = base64decode(linode_lke_cluster.CBC.kubeconfig)
 }
 
-# resource "null_resource" "write_kubeconfig" {
-#   provisioner "local-exec" {
-#     command = "mkdir ~/.kube && echo '${local.kubeconfig}' > ~/.kube/cbcPOC"
-#   }
-# }
-
-
-
 resource "null_resource" "write_kubeconfig" {
   provisioner "local-exec" {
-    command = "echo '${local.kubeconfig}' > ${WORKSPACE}/leos-file"
+    command = "mkdir ~/.kube && echo '${local.kubeconfig}' > ~/.kube/cbcPOC"
   }
 }
+
+
+
+# resource "null_resource" "write_kubeconfig" {
+#   provisioner "local-exec" {
+#     command = "echo '${local.kubeconfig}' > ${WORKSPACE}/leos-file"
+#   }
+# }
 
 
 
