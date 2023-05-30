@@ -61,7 +61,7 @@ resource "kubernetes_network_policy" "example" {
 
   spec {
     pod_selector {
-      match_labels {
+      match_labels = {
         app = kubernetes_deployment.CBC.spec.0.template.0.metadata.0.labels.app
       }
     }
