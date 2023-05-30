@@ -54,25 +54,25 @@ resource "kubernetes_deployment" "CBC" {
   }
 }
 
-resource "kubernetes_network_policy" "example" {
-  metadata {
-    name      = "cbc-poc"
-  }
+# resource "kubernetes_network_policy" "example" {
+#   metadata {
+#     name      = "cbc-poc"
+#   }
 
-  spec {
-    pod_selector {
-      match_labels = {
-        app = kubernetes_deployment.CBC.spec.0.template.0.metadata.0.labels.app
-      }
-    }
+#   spec {
+#     pod_selector {
+#       match_labels = {
+#         app = kubernetes_deployment.CBC.spec.0.template.0.metadata.0.labels.app
+#       }
+#     }
 
-    ingress {} # single empty rule to allow all ingress traffic
+#     ingress {} # single empty rule to allow all ingress traffic
 
-    egress {} # single empty rule to allow all egress traffic
+#     egress {} # single empty rule to allow all egress traffic
 
-    policy_types = ["Ingress", "Egress"]
-  }
-}
+#     policy_types = ["Ingress", "Egress"]
+#   }
+# }
 
 resource "kubernetes_service" "CBC" {
   metadata {
@@ -91,6 +91,20 @@ resource "kubernetes_service" "CBC" {
       port = 80
     }
   }
+}
+
+resource "linode_domain" "exampleDomain" {
+  domain    = "splitfare.io"
+  soa_email = "gabrielmermelstein@gmail.com"
+  type      = "master"
+}
+
+resource "linode_domain_record" "exampleDomainRec" {
+  domain_id   = linode_domain.exampleDomain.id
+  name        = "www.splitfare.io"
+  record_type = "A"
+  target      = kubernetes_service.CBC.ip_address
+  ttl_sec     = 300
 }
 
 
