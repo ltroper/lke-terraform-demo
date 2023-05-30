@@ -54,6 +54,24 @@ resource "kubernetes_deployment" "CBC" {
   }
 }
 
+resource "kubernetes_network_policy" "example" {
+  metadata {
+    name      = "cbc-poc"
+  }
+
+  spec {
+    pod_selector = {
+        app = kubernetes_deployment.CBC.spec.0.template.0.metadata.0.labels.app
+    }
+
+    ingress {} # single empty rule to allow all ingress traffic
+
+    egress {} # single empty rule to allow all egress traffic
+
+    policy_types = ["Ingress", "Egress"]
+  }
+}
+
 resource "kubernetes_service" "CBC" {
   metadata {
     name = "cbc-poc"
