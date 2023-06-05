@@ -1,5 +1,5 @@
 
-k8s_version = "1.25"
+k8s_version = "1.26"
 label = "lke-tf-jenkins"
 region = "us-east"
 pools = [
