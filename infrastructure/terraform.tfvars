@@ -1,6 +1,6 @@
 
 k8s_version = "1.25"
-label = "CBC"
+label = "lke-tf-jenkins"
 region = "us-east"
 pools = [
   {

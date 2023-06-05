@@ -9,28 +9,17 @@ terraform {
 
 
 provider "kubernetes" {
-<<<<<<< HEAD
   config_path = "${var.workspace}/kubeconfig.yaml"
 }
 
-# provider "kubernetes" {
-#   config_path = "${WORKSPACE}/leos-file"
-# }
 
-resource "kubernetes_deployment" "CBC" {
-  metadata {
-    name = "cbc-poc"
-=======
-  config_path = "~/.kube/tickTradeConfig"
-}
 
-resource "kubernetes_deployment" "tickTrade" {
+resource "kubernetes_deployment" "lke-tf-jenkins" {
   metadata {
-    name = "tick-trade-poc"
->>>>>>> parent of 80efc16 (changing names)
+    name = "lke-tf-jenkins-poc"
     labels = {
-      test = "tickTradePOC"
-      app  = "tick-trade-poc"
+      test = "lke-tf-jenkins"
+      app  = "lke-tf-jenkins"
     }
   }
 
@@ -39,25 +28,21 @@ resource "kubernetes_deployment" "tickTrade" {
 
     selector {
       match_labels = {
-        app = "tick-trade-poc"
+        app = "lke-tf-jenkins"
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "tick-trade-poc"
+          app = "lke-tf-jenkins"
         }
       }
 
       spec {
         container {
           image = "nginx"
-<<<<<<< HEAD
-          name  = "cbc-poc"
-=======
-          name  = "tick-trade-poc"
->>>>>>> parent of 80efc16 (changing names)
+          name  = "lke-tf-jenkins"
           port {
             container_port = 80
           }
@@ -67,7 +52,6 @@ resource "kubernetes_deployment" "tickTrade" {
   }
 }
 
-<<<<<<< HEAD
 # resource "kubernetes_network_policy" "example" {
 #   metadata {
 #     name      = "cbc-poc"
@@ -88,22 +72,17 @@ resource "kubernetes_deployment" "tickTrade" {
 #   }
 # }
 
-resource "kubernetes_service" "CBC" {
+resource "kubernetes_service" "lke-tf-jenkins" {
   metadata {
-    name = "cbc-poc"
-=======
-resource "kubernetes_service" "tickTrade" {
-  metadata {
-    name = "tick-trade-poc"
->>>>>>> parent of 80efc16 (changing names)
+    name = "lke-tf-jenkins"
     labels = {
-      test = "tickTradePOC"
-      app  = "tick-trade-poc"
+      test = "lke-tf-jenkins"
+      app  = "lke-tf-jenkins"
     }
   }
   spec {
     selector = {
-      app = kubernetes_deployment.tickTrade.spec.0.template.0.metadata.0.labels.app
+      app = kubernetes_deployment.lke-tf-jenkins.spec.0.template.0.metadata.0.labels.app
     }
     type = "LoadBalancer"
     port {
@@ -112,19 +91,19 @@ resource "kubernetes_service" "tickTrade" {
   }
 }
 
-resource "linode_domain" "exampleDomain" {
-  domain    = "splitfare.io"
-  soa_email = "gabrielmermelstein@gmail.com"
-  type      = "master"
-}
+# resource "linode_domain" "exampleDomain" {
+#   domain    = "splitfare.io"
+#   soa_email = "gabrielmermelstein@gmail.com"
+#   type      = "master"
+# }
 
-resource "linode_domain_record" "exampleDomainRec" {
-  domain_id   = linode_domain.exampleDomain.id
-  name        = "www.splitfare.io"
-  record_type = "A"
-  target      = kubernetes_service.CBC.ip_address
-  ttl_sec     = 300
-}
+# resource "linode_domain_record" "exampleDomainRec" {
+#   domain_id   = linode_domain.exampleDomain.id
+#   name        = "www.splitfare.io"
+#   record_type = "A"
+#   target      = kubernetes_service.CBC.ip_address
+#   ttl_sec     = 300
+# }
 
 
 variable "workspace" {

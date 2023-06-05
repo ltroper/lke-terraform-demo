@@ -13,7 +13,7 @@ provider "linode" {
 
 //Use the linode_lke_cluster resource to create
 //a Kubernetes cluster
-resource "linode_lke_cluster" "tickTrade" {
+resource "linode_lke_cluster" "lke-tf-jenkins" {
   k8s_version = var.k8s_version
   label       = var.label
   region      = var.region
@@ -30,7 +30,6 @@ resource "linode_lke_cluster" "tickTrade" {
 }
 
 
-<<<<<<< HEAD
 # locals {
 #   kubeconfig = base64decode(linode_lke_cluster.CBC.kubeconfig)
 # }
@@ -44,44 +43,29 @@ resource "linode_lke_cluster" "tickTrade" {
 
 
 
-=======
-locals {
-  kubeconfig = base64decode(linode_lke_cluster.tickTrade.kubeconfig)
-}
-
-resource "null_resource" "write_kubeconfig" {
-  provisioner "local-exec" {
-    command = "mkdir ~/.kube && echo '${local.kubeconfig}' > ~/.kube/tickTradeConfig"
-  }
-}
->>>>>>> parent of 80efc16 (changing names)
 
 
 
 //Export this cluster's attributes
 output "kubeconfig" {
-<<<<<<< HEAD
-  value     = base64decode(linode_lke_cluster.CBC.kubeconfig)
-=======
-  value     = linode_lke_cluster.tickTrade.kubeconfig
->>>>>>> parent of 80efc16 (changing names)
+  value     = base64decode(linode_lke_cluster.lke-tf-jenkins.kubeconfig)
   sensitive = true
 }
 
 output "api_endpoints" {
-  value = linode_lke_cluster.tickTrade.api_endpoints
+  value = linode_lke_cluster.lke-tf-jenkins.api_endpoints
 }
 
 output "status" {
-  value = linode_lke_cluster.tickTrade.status
+  value = linode_lke_cluster.lke-tf-jenkins.status
 }
 
 output "id" {
-  value = linode_lke_cluster.tickTrade.id
+  value = linode_lke_cluster.lke-tf-jenkins.id
 }
 
 output "pool" {
-  value = linode_lke_cluster.tickTrade.pool
+  value = linode_lke_cluster.lke-tf-jenkins.pool
 }
 
 
